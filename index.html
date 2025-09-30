@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon</title>
-    <link rel="shortcut icon" href="assets/img/logo_black.png">
+    <link rel="shortcut icon" href="assets/img/logo.png">
     <style>
         /* Temel Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
@@ -12,13 +12,14 @@
         body {
             height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* İçerik yukarıya hizalandı */
             align-items: center;
             text-align: center;
             background: url('assets/img/bg.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
             color: #fff;
+            padding-top: 50px; /* Üstten boşluk */
         }
 
         /* Overlay */
@@ -27,23 +28,22 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* %40 siyah overlay */
+            background-color: rgba(0, 0, 0, 0.4);
             z-index: 0;
         }
 
         #app {
             position: relative;
             z-index: 1; /* overlay’in üstünde */
+            width: 100%;
         }
 
         .logo {
             width: 120px;
             height: 120px;
-            margin-bottom: 20px;
-            background: url('assets/img/logo_black.png') no-repeat center center;
+            margin: 0 auto 20px auto;
+            background: url('assets/img/logo.png') no-repeat center center;
             background-size: contain;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         h1 {
