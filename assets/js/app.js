@@ -20,7 +20,7 @@ class Timera{
     }
 }
 $(document).ready(function() {
-    var date = new Date("2019.01.01");
+    var date = new Date("2026.01.01");
     window.timer = new Timera(date, 'timer');
     timer.show();
     setInterval('timer.show()', 1000);
