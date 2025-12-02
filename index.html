@@ -1,132 +1,204 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <link rel="shortcut icon" href="assets/img/logo.png">
-    <style>
-        /* Temel Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon</title>
+<link rel="shortcut icon" href="assets/img/logo.png">
 
-        body {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background: url('assets/img/bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-            color: #fff;
-        }
+<style>
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-        /* Overlay */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 0;
-        }
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: url('assets/img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    color: #fff;
+}
 
-        #app {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* Overlay */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-        /* Logo en üstte */
-        .logo {
-            width: 250px;
-            height: 250px;
-            margin-top: 25px; /* Üstten çok az boşluk */
-            background: url('assets/img/logo.png') no-repeat center center;
-            background-size: contain;
-        }
+/* Content */
+#app {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        /* Başlık */
-        h1 {
-            font-size: 3rem;
-            letter-spacing: 5px;
-            margin: 200px 0 10px 0; /* logo ile başlık arası ve başlık ile sayaç arası */
-        }
+/* Logo */
+.logo {
+    width: 250px;
+    height: 250px;
+    margin-top: 25px;
+    background: url('assets/img/logo.png') no-repeat center center;
+    background-size: contain;
+}
 
-        /* Sayaç */
-        #timer {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            margin-top: 10px; /* başlık ile arası kontrol */
-        }
+/* Title */
+h1 {
+    font-size: 3rem;
+    letter-spacing: 5px;
+    margin: 200px 0 10px;
+}
 
-        #timer span {
-            font-weight: bold;
-        }
+/* Timer */
+#timer {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
 
-        /* Footer */
-        .copyright {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            font-size: 0.9rem;
-            color: #fff;
-        }
+#timer span {
+    font-weight: bold;
+}
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            #timer { font-size: 1.2rem; }
-        }
-    </style>
+/* Email Form */
+.notify-form {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.notify-form input {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    min-width: 260px;
+}
+
+.notify-form button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.notify-form button:hover {
+    background: #ddd;
+}
+
+.form-note {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Footer */
+.copyright {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    #timer { font-size: 1.2rem; }
+
+    .notify-form {
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .notify-form input {
+        width: 100%;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div id="app">
-        <div class="logo"></div>
-        <h1>COMING SOON</h1>
-        <p id="timer">
-            <span id="days">0</span> DAYS 
-            <span id="hours">0</span> HOURS 
-            <span id="minutes">0</span> MINUTES 
-            <span id="seconds">0</span> SECONDS
-        </p>
+<div id="app">
+    <div class="logo"></div>
+
+    <h1>COMING SOON</h1>
+
+    <p id="timer">
+        <span id="days">0</span> DAYS 
+        <span id="hours">0</span> HOURS 
+        <span id="minutes">0</span> MINUTES 
+        <span id="seconds">0</span> SECONDS
+    </p>
+
+    <!-- EMAIL FORM -->
+    <form 
+      class="notify-form"
+      action="https://formspree.io/f/mqarbdea"
+      method="POST">
+
+        <input
+          type="email"
+          name="email"
+          placeholder="E-posta adresinizi girin"
+          required>
+
+        <button type="submit">Haberdar Et</button>
+    </form>
+
+    <div class="form-note">
+        Spam yok. Sadece lansman duyurusu.
     </div>
 
-    <div class="copyright">
-        nontex.com.tr - nontextekstil@gmail.com
-    </div>
+</div>
 
-    <script>
-        const launchDate = new Date("2025-12-31T00:00:00").getTime();
+<div class="copyright">
+    nontex.com.tr - nontextekstil@gmail.com
+</div>
 
-        function updateTimer() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+<script>
+const launchDate = new Date("2025-12-31T00:00:00").getTime();
 
-            if(distance < 0) {
-                document.getElementById("timer").innerHTML = "LAUNCHED!";
-                clearInterval(timerInterval);
-                return;
-            }
+function updateTimer() {
+    const now = new Date().getTime();
+    const distance = launchDate - now;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (distance < 0) {
+        document.getElementById("timer").innerHTML = "LAUNCHED!";
+        return;
+    }
 
-            document.getElementById("days").textContent = days;
-            document.getElementById("hours").textContent = hours;
-            document.getElementById("minutes").textContent = minutes;
-            document.getElementById("seconds").textContent = seconds;
-        }
+    document.getElementById("days").textContent =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").textContent =
+        Math.floor((distance / (1000 * 60 * 60)) % 24);
+    document.getElementById("minutes").textContent =
+        Math.floor((distance / (1000 * 60)) % 60);
+    document.getElementById("seconds").textContent =
+        Math.floor((distance / 1000) % 60);
+}
 
-        const timerInterval = setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+setInterval(updateTimer, 1000);
+updateTimer();
+</script>
 
 </body>
 </html>
-
