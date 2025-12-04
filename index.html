@@ -7,7 +7,6 @@
 <link rel="shortcut icon" href="assets/img/logo.png">
 
 <style>
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -25,14 +24,12 @@ body {
     background-size: cover;
     position: relative;
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* iOS Safari için fixed disable */
+/* iOS Safari */
 @supports (-webkit-touch-callout: none) {
-    body {
-        background-attachment: scroll !important;
-    }
+    body { background-attachment: scroll !important; }
 }
 
 /* Overlay */
@@ -40,33 +37,23 @@ body::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.25);
+    background: rgba(0,0,0,0.25);
     z-index: 0;
 }
 
-/* KAYAN UŞAK YAZISI */
+/* SCROLL BAĞIMLI KAYAN YAZI */
 .bg-text {
     position: absolute;
     top: 50%;
-    left: -100%;
+    right: -120%;
     font-size: 20vw;
     font-weight: 900;
     letter-spacing: 20px;
-    color: rgba(255, 255, 255, 0.1); /* %10 opaklık */
     white-space: nowrap;
-    z-index: 0;
-    animation: slideText 30s linear infinite;
+    color: rgba(255,255,255,0.1);
     transform: translateY(-50%);
+    z-index: 0;
     pointer-events: none;
-}
-
-@keyframes slideText {
-    from {
-        right: -100%;
-    }
-    to {
-        right: 120%;
-    }
 }
 
 /* Content */
@@ -79,7 +66,6 @@ body::before {
     align-items: center;
 }
 
-/* Logo */
 .logo {
     width: 250px;
     height: 250px;
@@ -88,104 +74,71 @@ body::before {
     background-size: contain;
 }
 
-/* Title */
 h1 {
     font-size: 3rem;
     letter-spacing: 5px;
     margin: 150px 0 10px;
 }
 
-/* Timer */
 #timer {
     font-size: 1.5rem;
     letter-spacing: 2px;
-    margin-top: 5px;
 }
 #timer span { font-weight: bold; }
 
-/* Email Form */
+/* Form */
 .notify-form {
     margin-top: 30px;
     display: flex;
     gap: 10px;
-    justify-content: center;
 }
 
 .notify-form input {
-    padding: 12px 15px;
+    padding: 12px;
     font-size: 1rem;
     border-radius: 4px;
     min-width: 260px;
-    border: 1px solid rgba(255,255,255,0.4);
     background: rgba(255,255,255,0.85);
-    color: #000;
-}
-
-.notify-form input:focus {
-    outline: none;
-    background: #fff;
 }
 
 .notify-form button {
     padding: 12px 20px;
-    font-size: 1rem;
-    border: none;
     border-radius: 4px;
     background: rgba(255,255,255,0.9);
-    color: #000;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
 }
-
-.notify-form button:hover { background: #ddd; }
 
 /* Footer */
 .copyright {
-    position: relative;
     margin-top: auto;
-    padding: 20px 0;
-    width: 100%;
-    font-size: 0.9rem;
+    padding: 20px;
     z-index: 1;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    h1 { font-size: 2rem; }
-    #timer { font-size: 1.2rem; }
-    .bg-text { font-size: 30vw; }
-
-    .notify-form {
-        flex-direction: column;
-        width: 80%;
-    }
-    .notify-form input { width: 100%; }
+@media(max-width:600px){
+    h1{font-size:2rem}
+    .bg-text{font-size:30vw}
 }
 </style>
 </head>
 
 <body>
 
-<!-- KAYAN ARKA YAZI -->
-<div class="bg-text">UŞAK</div>
+<!-- KAYAN YAZI -->
+<div class="bg-text" id="bgText">UŞAK</div>
 
 <div id="app">
     <div class="logo"></div>
-
     <h1>COMING SOON</h1>
-
     <p id="timer">
-        <span id="days">0</span> DAYS 
-        <span id="hours">0</span> HOURS 
-        <span id="minutes">0</span> MINUTES 
+        <span id="days">0</span> DAYS
+        <span id="hours">0</span> HOURS
+        <span id="minutes">0</span> MINUTES
         <span id="seconds">0</span> SECONDS
     </p>
 
-    <form 
-      class="notify-form"
-      action="https://formspree.io/f/mqarbdea"
-      method="POST">
+    <form class="notify-form" action="https://formspree.io/f/mqarbdea" method="POST">
         <input type="email" name="email" placeholder="Enter Your Email" required>
         <button type="submit">Notify Me</button>
     </form>
@@ -196,29 +149,32 @@ h1 {
 </div>
 
 <script>
+/* TIMER */
 const launchDate = new Date("2025-12-31T00:00:00").getTime();
+setInterval(() => {
+    const d = launchDate - Date.now();
+    if (d < 0) return;
+    days.textContent = Math.floor(d / 86400000);
+    hours.textContent = Math.floor(d / 3600000 % 24);
+    minutes.textContent = Math.floor(d / 60000 % 60);
+    seconds.textContent = Math.floor(d / 1000 % 60);
+}, 1000);
 
-function updateTimer() {
-    const now = new Date().getTime();
-    const distance = launchDate - now;
+/* SCROLL SPEED PARALLAX TEXT */
+let lastScrollY = window.scrollY;
+let position = window.innerWidth * 1.2;
 
-    if (distance < 0) {
-        document.getElementById("timer").innerHTML = "LAUNCHED!";
-        return;
-    }
+window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+    const speed = currentScroll - lastScrollY;
 
-    document.getElementById("days").textContent =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").textContent =
-        Math.floor((distance / (1000 * 60 * 60)) % 24);
-    document.getElementById("minutes").textContent =
-        Math.floor((distance / (1000 * 60)) % 60);
-    document.getElementById("seconds").textContent =
-        Math.floor((distance / 1000) % 60);
-}
+    position -= speed * 1.2; // hassasiyet
 
-setInterval(updateTimer, 1000);
-updateTimer();
+    document.getElementById("bgText").style.transform =
+        `translate(${position}px, -50%)`;
+
+    lastScrollY = currentScroll;
+});
 </script>
 
 </body>
