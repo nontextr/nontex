@@ -25,6 +25,7 @@ body {
     background-size: cover;
     position: relative;
     color: #fff;
+    overflow: hidden;
 }
 
 /* iOS Safari için fixed disable */
@@ -41,6 +42,31 @@ body::before {
     inset: 0;
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 0;
+}
+
+/* KAYAN UŞAK YAZISI */
+.bg-text {
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    font-size: 20vw;
+    font-weight: 900;
+    letter-spacing: 20px;
+    color: rgba(255, 255, 255, 0.1); /* %10 opaklık */
+    white-space: nowrap;
+    z-index: 0;
+    animation: slideText 30s linear infinite;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+@keyframes slideText {
+    from {
+        left: -120%;
+    }
+    to {
+        left: 120%;
+    }
 }
 
 /* Content */
@@ -128,6 +154,7 @@ h1 {
 @media (max-width: 600px) {
     h1 { font-size: 2rem; }
     #timer { font-size: 1.2rem; }
+    .bg-text { font-size: 30vw; }
 
     .notify-form {
         flex-direction: column;
@@ -139,6 +166,9 @@ h1 {
 </head>
 
 <body>
+
+<!-- KAYAN ARKA YAZI -->
+<div class="bg-text">UŞAK</div>
 
 <div id="app">
     <div class="logo"></div>
@@ -152,18 +182,11 @@ h1 {
         <span id="seconds">0</span> SECONDS
     </p>
 
-    <!-- EMAIL FORM -->
     <form 
       class="notify-form"
       action="https://formspree.io/f/mqarbdea"
       method="POST">
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Your Email"
-          required>
-
+        <input type="email" name="email" placeholder="Enter Your Email" required>
         <button type="submit">Notify Me</button>
     </form>
 </div>
