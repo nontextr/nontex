@@ -48,24 +48,25 @@ body::before {
 .bg-text {
     position: absolute;
     top: 50%;
-    right: -10%;
+    left: -100%;
     font-size: 20vw;
     font-weight: 900;
     letter-spacing: 20px;
-    color: rgba(255, 255, 255, 0.1); /* %10 opaklık */
+    color: rgba(255, 255, 255, 0.1);
     white-space: nowrap;
     z-index: 0;
-    animation: slideText 30s linear infinite;
+    animation: slideText 20s linear infinite;
     transform: translateY(-50%);
     pointer-events: none;
 }
 
+
 @keyframes slideText {
     from {
-        right: -120%;
+        right: -100%;
     }
     to {
-        right: 120%;
+        right: 100%;
     }
 }
 
